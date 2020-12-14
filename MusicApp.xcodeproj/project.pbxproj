@@ -7,15 +7,20 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AC93C3EB258816C400F38FB0 /* CollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC93C3EA258816C400F38FB0 /* CollectionViewController.swift */; };
 		ACF6C2E92587C51C00B6A996 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACF6C2E82587C51C00B6A996 /* AppDelegate.swift */; };
 		ACF6C2EB2587C51C00B6A996 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACF6C2EA2587C51C00B6A996 /* SceneDelegate.swift */; };
 		ACF6C2ED2587C51C00B6A996 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACF6C2EC2587C51C00B6A996 /* ViewController.swift */; };
 		ACF6C2F02587C51C00B6A996 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ACF6C2EE2587C51C00B6A996 /* Main.storyboard */; };
 		ACF6C2F22587C52200B6A996 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ACF6C2F12587C52200B6A996 /* Assets.xcassets */; };
 		ACF6C2F52587C52200B6A996 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ACF6C2F32587C52200B6A996 /* LaunchScreen.storyboard */; };
+		ACF6C3022587DB8100B6A996 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACF6C3012587DB8100B6A996 /* NetworkManager.swift */; };
+		ACF6C3052587EAD600B6A996 /* NetworkModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACF6C3042587EAD600B6A996 /* NetworkModel.swift */; };
+		ACF6C30725880A1800B6A996 /* AlbumCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACF6C30625880A1800B6A996 /* AlbumCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		AC93C3EA258816C400F38FB0 /* CollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewController.swift; sourceTree = "<group>"; };
 		ACF6C2E52587C51C00B6A996 /* MusicApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MusicApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		ACF6C2E82587C51C00B6A996 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		ACF6C2EA2587C51C00B6A996 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -24,6 +29,9 @@
 		ACF6C2F12587C52200B6A996 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		ACF6C2F42587C52200B6A996 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		ACF6C2F62587C52200B6A996 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		ACF6C3012587DB8100B6A996 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
+		ACF6C3042587EAD600B6A996 /* NetworkModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkModel.swift; sourceTree = "<group>"; };
+		ACF6C30625880A1800B6A996 /* AlbumCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,15 +64,75 @@
 		ACF6C2E72587C51C00B6A996 /* MusicApp */ = {
 			isa = PBXGroup;
 			children = (
-				ACF6C2E82587C51C00B6A996 /* AppDelegate.swift */,
-				ACF6C2EA2587C51C00B6A996 /* SceneDelegate.swift */,
-				ACF6C2EC2587C51C00B6A996 /* ViewController.swift */,
-				ACF6C2EE2587C51C00B6A996 /* Main.storyboard */,
-				ACF6C2F12587C52200B6A996 /* Assets.xcassets */,
-				ACF6C2F32587C52200B6A996 /* LaunchScreen.storyboard */,
-				ACF6C2F62587C52200B6A996 /* Info.plist */,
+				ACF6C2FC2587C6EE00B6A996 /* Support files */,
+				ACF6C3002587DB6F00B6A996 /* NetworkManager */,
+				ACF6C3032587EABC00B6A996 /* Model */,
+				ACF6C2FD2587C6F800B6A996 /* Controllers */,
+				ACF6C2FE2587C70800B6A996 /* Storyboards */,
+				ACF6C2FF2587C71700B6A996 /* Setting files */,
+				ACF6C30825880A2800B6A996 /* View */,
 			);
 			path = MusicApp;
+			sourceTree = "<group>";
+		};
+		ACF6C2FC2587C6EE00B6A996 /* Support files */ = {
+			isa = PBXGroup;
+			children = (
+				ACF6C2E82587C51C00B6A996 /* AppDelegate.swift */,
+				ACF6C2EA2587C51C00B6A996 /* SceneDelegate.swift */,
+			);
+			path = "Support files";
+			sourceTree = "<group>";
+		};
+		ACF6C2FD2587C6F800B6A996 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				ACF6C2EC2587C51C00B6A996 /* ViewController.swift */,
+				AC93C3EA258816C400F38FB0 /* CollectionViewController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		ACF6C2FE2587C70800B6A996 /* Storyboards */ = {
+			isa = PBXGroup;
+			children = (
+				ACF6C2EE2587C51C00B6A996 /* Main.storyboard */,
+				ACF6C2F32587C52200B6A996 /* LaunchScreen.storyboard */,
+			);
+			path = Storyboards;
+			sourceTree = "<group>";
+		};
+		ACF6C2FF2587C71700B6A996 /* Setting files */ = {
+			isa = PBXGroup;
+			children = (
+				ACF6C2F12587C52200B6A996 /* Assets.xcassets */,
+				ACF6C2F62587C52200B6A996 /* Info.plist */,
+			);
+			path = "Setting files";
+			sourceTree = "<group>";
+		};
+		ACF6C3002587DB6F00B6A996 /* NetworkManager */ = {
+			isa = PBXGroup;
+			children = (
+				ACF6C3012587DB8100B6A996 /* NetworkManager.swift */,
+			);
+			path = NetworkManager;
+			sourceTree = "<group>";
+		};
+		ACF6C3032587EABC00B6A996 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				ACF6C3042587EAD600B6A996 /* NetworkModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		ACF6C30825880A2800B6A996 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				ACF6C30625880A1800B6A996 /* AlbumCell.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -138,9 +206,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				ACF6C3022587DB8100B6A996 /* NetworkManager.swift in Sources */,
 				ACF6C2ED2587C51C00B6A996 /* ViewController.swift in Sources */,
 				ACF6C2E92587C51C00B6A996 /* AppDelegate.swift in Sources */,
+				ACF6C3052587EAD600B6A996 /* NetworkModel.swift in Sources */,
+				AC93C3EB258816C400F38FB0 /* CollectionViewController.swift in Sources */,
 				ACF6C2EB2587C51C00B6A996 /* SceneDelegate.swift in Sources */,
+				ACF6C30725880A1800B6A996 /* AlbumCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -285,7 +357,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				INFOPLIST_FILE = MusicApp/Info.plist;
+				INFOPLIST_FILE = "MusicApp/Setting files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -293,7 +365,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = ArtemUstinov.MusicApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -302,7 +374,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				INFOPLIST_FILE = MusicApp/Info.plist;
+				INFOPLIST_FILE = "MusicApp/Setting files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -310,7 +382,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = ArtemUstinov.MusicApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
