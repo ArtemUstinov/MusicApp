@@ -62,7 +62,8 @@ class InfoAlbumViewController: UIViewController {
         
         for info in infoOfAlbum ?? [] {
             albumNameLabel.text = info.collectionName
-            priceAlbumLabel.text = "\(info.collectionPrice ?? 0) \(info.currency ?? "")"
+            priceAlbumLabel.text =
+            "\(info.collectionPrice ?? 0) \(info.currency ?? "")"
             
             guard let url = URL(string: info.albumPicture ?? "") else { return }
             guard let dataImage = try? Data(contentsOf: url) else { return }
@@ -99,7 +100,9 @@ extension InfoAlbumViewController: UITableViewDataSource {
 
 extension InfoAlbumViewController: UITableViewDelegate {
     
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    func tableView(_ tableView: UITableView,
+                   didSelectRowAt indexPath: IndexPath) {
+        
         tableView.deselectRow(at: indexPath, animated: true)
     }
 }

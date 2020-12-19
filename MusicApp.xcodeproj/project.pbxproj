@@ -19,7 +19,7 @@
 		ACF6C2F52587C52200B6A996 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ACF6C2F32587C52200B6A996 /* LaunchScreen.storyboard */; };
 		ACF6C3022587DB8100B6A996 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACF6C3012587DB8100B6A996 /* NetworkManager.swift */; };
 		ACF6C3052587EAD600B6A996 /* AlbumModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACF6C3042587EAD600B6A996 /* AlbumModel.swift */; };
-		ACF6C30725880A1800B6A996 /* AlbumCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACF6C30625880A1800B6A996 /* AlbumCell.swift */; };
+		ACF6C30725880A1800B6A996 /* InfoAlbumCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACF6C30625880A1800B6A996 /* InfoAlbumCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -37,7 +37,7 @@
 		ACF6C2F62587C52200B6A996 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		ACF6C3012587DB8100B6A996 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		ACF6C3042587EAD600B6A996 /* AlbumModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumModel.swift; sourceTree = "<group>"; };
-		ACF6C30625880A1800B6A996 /* AlbumCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumCell.swift; sourceTree = "<group>"; };
+		ACF6C30625880A1800B6A996 /* InfoAlbumCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoAlbumCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -146,7 +146,7 @@
 		ACF6C30825880A2800B6A996 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				ACF6C30625880A1800B6A996 /* AlbumCell.swift */,
+				ACF6C30625880A1800B6A996 /* InfoAlbumCell.swift */,
 				AC3938A9258D11DA00BA093C /* TrackCell.swift */,
 			);
 			path = View;
@@ -231,7 +231,7 @@
 				ACF6C3052587EAD600B6A996 /* AlbumModel.swift in Sources */,
 				AC93C3ED25890DB400F38FB0 /* InfoAlbumViewController.swift in Sources */,
 				ACF6C2EB2587C51C00B6A996 /* SceneDelegate.swift in Sources */,
-				ACF6C30725880A1800B6A996 /* AlbumCell.swift in Sources */,
+				ACF6C30725880A1800B6A996 /* InfoAlbumCell.swift in Sources */,
 				AC3938AA258D11DA00BA093C /* TrackCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

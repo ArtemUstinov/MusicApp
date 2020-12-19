@@ -10,6 +10,7 @@ import UIKit
 
 extension UIActivityIndicatorView {
     
+    //MARK: - Public methods:
     func startActivityIndicator(delegate infoAlbumVC: InfoAlbumViewController) {
         self.startAnimating()
         
@@ -23,7 +24,7 @@ extension UIActivityIndicatorView {
         self.hidesWhenStopped = true
     }
     
-     func finishActivityIndicator(delegate infoAlbumVC: InfoAlbumViewController) {
+    func finishActivityIndicator(delegate infoAlbumVC: InfoAlbumViewController) {
         self.stopAnimating()
         
         infoAlbumVC.albumImage.isHidden = false

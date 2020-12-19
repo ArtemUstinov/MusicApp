@@ -47,7 +47,7 @@ class InfoTrackViewController: UIViewController {
             sender.setImage(UIImage(systemName: "play"), for: .normal)
         }
     }
-
+    
     //MARK: - Private methods:
     private func setupUI() {
         

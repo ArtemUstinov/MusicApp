@@ -6,9 +6,6 @@
 //  Copyright © 2020 Artem Ustinov. All rights reserved.
 //
 
-
-//https://itunes.apple.com/search?term=2pac&media=music
-
 import UIKit
 
 class AlbumViewController: UIViewController {
@@ -63,7 +60,7 @@ class AlbumViewController: UIViewController {
     }
 }
 
-//MARK: UICollection view data source
+//MARK: - UICollection view data source
 extension AlbumViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView,
@@ -75,11 +72,11 @@ extension AlbumViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView,
                         cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "albumCell",
-                                                      for: indexPath) as! AlbumCell
+        let cell =
+            collectionView.dequeueReusableCell(withReuseIdentifier: "albumCell",
+                                               for: indexPath) as! InfoAlbumCell
         
         cell.configureAlbumCell(with: albums, indexPath: indexPath)
-        
         return cell
     }
 }
@@ -136,7 +133,8 @@ extension AlbumViewController: UISearchResultsUpdating {
         navigationItem.searchController = searchController
         definesPresentationContext = true
         
-        if let textField = searchController.searchBar.value(forKey: "searchField") as? UITextField {
+        if let textField =
+            searchController.searchBar.value(forKey: "searchField") as? UITextField {
             textField.font = UIFont.boldSystemFont(ofSize: 15)
             textField.textColor = .black
         }

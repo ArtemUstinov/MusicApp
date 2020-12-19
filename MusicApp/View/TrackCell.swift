@@ -9,7 +9,7 @@
 import UIKit
 
 class TrackCell: UITableViewCell {
-
+    
     //MARK: - IBOutlets:
     @IBOutlet weak var albumImage: UIImageView!
     
@@ -27,12 +27,12 @@ class TrackCell: UITableViewCell {
         trackPriceLabel.text = "\(trackPrice) \(currency)"
         
         albumImage.image = getImageAlbum(with: infoOfAlbum,
-                                        indexPath: indexPath)
+                                         indexPath: indexPath)
     }
     
     //MARK: - Private methods:
     private func getImageAlbum(with infoOfAlbum: [TrackResultsModel]?,
-                              indexPath: IndexPath) -> UIImage? {
+                               indexPath: IndexPath) -> UIImage? {
         
         albumImage.layer.cornerRadius = albumImage.frame.width / 7
         
@@ -44,3 +44,4 @@ class TrackCell: UITableViewCell {
         return UIImage(data: dataImage)
     }
 }
+
