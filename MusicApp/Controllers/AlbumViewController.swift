@@ -37,17 +37,15 @@ class AlbumViewController: UIViewController {
         getSearchController()
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-    }
-    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
-        let detailsVC = segue.destination as! DetailsViewController
+        let detailsVC = segue.destination as! InfoAlbumViewController
         let albumCell = sender as! UICollectionViewCell
         guard let indexPath = collectionView.indexPath(for: albumCell) else { return }
         
-        detailsVC.fetchDataArtist(albumId: self.albums?[indexPath.item].collectionId)
+        DispatchQueue.main.async {
+            detailsVC.fetchDataArtist(albumId: self.albums?[indexPath.item].collectionId)
+        }
     }
     
     //MARK: - Private methods:
@@ -61,32 +59,6 @@ class AlbumViewController: UIViewController {
             DispatchQueue.main.async {
                 self.collectionView.reloadData()
             }
-        }
-    }
-    
-    private func filterContentForSearchText(_ searchText: String) {
-        
-        sortedAlbumResults = albums?.filter { dataValue in
-            let dataValue = dataValue.collectionName?.lowercased()
-            return dataValue?.contains(searchText.lowercased()) ?? false
-            } ?? []
-        
-        DispatchQueue.main.async {
-            self.collectionView.reloadData()
-        }
-    }
-    
-    private func getSearchController() {
-        searchController.searchResultsUpdater = self
-        searchController.obscuresBackgroundDuringPresentation = false
-        searchController.searchBar.placeholder = "Enter the name of the album"
-        searchController.searchBar.barTintColor = .white
-        navigationItem.searchController = searchController
-        definesPresentationContext = true
-        
-        if let textField = searchController.searchBar.value(forKey: "searchField") as? UITextField {
-            textField.font = UIFont.boldSystemFont(ofSize: 15)
-            textField.textColor = .black
         }
     }
 }
@@ -106,28 +78,13 @@ extension AlbumViewController: UICollectionViewDataSource {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "albumCell",
                                                       for: indexPath) as! AlbumCell
         
-//        guard let stringUrl = albums?[indexPath.row].artworkUrl100 else {
-//            return cell.self }
-//        guard let url = URL(string: stringUrl) else { return cell }
-//        guard let dataImage = try? Data(contentsOf: url) else { return cell }
-//        
-//        cell.albumCellImage.image = UIImage(data: dataImage)
-        
         cell.configureAlbumCell(with: albums, indexPath: indexPath)
         
         return cell
     }
 }
 
-
-extension AlbumViewController: UISearchResultsUpdating {
-    
-    func updateSearchResults(for searchController: UISearchController) {
-        
-        filterContentForSearchText(searchController.searchBar.text ?? "")
-    }
-}
-
+//MARK: - UICollection view delegate flow layout
 extension AlbumViewController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView,
@@ -141,5 +98,49 @@ extension AlbumViewController: UICollectionViewDelegateFlowLayout {
         
         return CGSize(width: widthPerItem, height: widthPerItem)
     }
+    
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        insetForSectionAt section: Int) -> UIEdgeInsets {
+        
+        UIEdgeInsets(top: 5, left: 16, bottom: 16, right: 16)
+    }
 }
+
+//MARK: - UISearch controller
+extension AlbumViewController: UISearchResultsUpdating {
+    
+    func updateSearchResults(for searchController: UISearchController) {
+        
+        filterContentForSearchText(searchController.searchBar.text ?? "")
+    }
+    
+    private func filterContentForSearchText(_ searchText: String) {
+        
+        sortedAlbumResults = albums?.filter { dataValue in
+            let dataValue = dataValue.collectionName?.lowercased()
+            return dataValue?.contains(searchText.lowercased()) ?? false
+            } ?? []
+        
+        DispatchQueue.main.async {
+            self.collectionView.reloadData()
+        }
+    }
+    
+    private func getSearchController() {
+        
+        searchController.searchResultsUpdater = self
+        searchController.obscuresBackgroundDuringPresentation = false
+        searchController.searchBar.placeholder = "Enter the name of the album"
+        searchController.searchBar.barTintColor = .white
+        navigationItem.searchController = searchController
+        definesPresentationContext = true
+        
+        if let textField = searchController.searchBar.value(forKey: "searchField") as? UITextField {
+            textField.font = UIFont.boldSystemFont(ofSize: 15)
+            textField.textColor = .black
+        }
+    }
+}
+
 

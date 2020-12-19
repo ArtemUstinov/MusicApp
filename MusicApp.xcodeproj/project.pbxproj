@@ -8,7 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		AC3938AA258D11DA00BA093C /* TrackCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC3938A9258D11DA00BA093C /* TrackCell.swift */; };
-		AC93C3ED25890DB400F38FB0 /* DetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC93C3EC25890DB400F38FB0 /* DetailsViewController.swift */; };
+		AC3938AC258D43B000BA093C /* InfoTrackViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC3938AB258D43B000BA093C /* InfoTrackViewController.swift */; };
+		AC3938AF258D7E9B00BA093C /* Extensions + UIActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC3938AE258D7E9B00BA093C /* Extensions + UIActivityIndicator.swift */; };
+		AC93C3ED25890DB400F38FB0 /* InfoAlbumViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC93C3EC25890DB400F38FB0 /* InfoAlbumViewController.swift */; };
 		ACF6C2E92587C51C00B6A996 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACF6C2E82587C51C00B6A996 /* AppDelegate.swift */; };
 		ACF6C2EB2587C51C00B6A996 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACF6C2EA2587C51C00B6A996 /* SceneDelegate.swift */; };
 		ACF6C2ED2587C51C00B6A996 /* AlbumViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACF6C2EC2587C51C00B6A996 /* AlbumViewController.swift */; };
@@ -22,7 +24,9 @@
 
 /* Begin PBXFileReference section */
 		AC3938A9258D11DA00BA093C /* TrackCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackCell.swift; sourceTree = "<group>"; };
-		AC93C3EC25890DB400F38FB0 /* DetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsViewController.swift; sourceTree = "<group>"; };
+		AC3938AB258D43B000BA093C /* InfoTrackViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoTrackViewController.swift; sourceTree = "<group>"; };
+		AC3938AE258D7E9B00BA093C /* Extensions + UIActivityIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extensions + UIActivityIndicator.swift"; sourceTree = "<group>"; };
+		AC93C3EC25890DB400F38FB0 /* InfoAlbumViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoAlbumViewController.swift; sourceTree = "<group>"; };
 		ACF6C2E52587C51C00B6A996 /* MusicApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MusicApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		ACF6C2E82587C51C00B6A996 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		ACF6C2EA2587C51C00B6A996 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -47,6 +51,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		AC3938AD258D7E8000BA093C /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				AC3938AE258D7E9B00BA093C /* Extensions + UIActivityIndicator.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 		ACF6C2DC2587C51C00B6A996 = {
 			isa = PBXGroup;
 			children = (
@@ -69,10 +81,11 @@
 				ACF6C2FC2587C6EE00B6A996 /* Support files */,
 				ACF6C3002587DB6F00B6A996 /* NetworkManager */,
 				ACF6C3032587EABC00B6A996 /* Model */,
+				ACF6C30825880A2800B6A996 /* View */,
 				ACF6C2FD2587C6F800B6A996 /* Controllers */,
+				AC3938AD258D7E8000BA093C /* Extensions */,
 				ACF6C2FE2587C70800B6A996 /* Storyboards */,
 				ACF6C2FF2587C71700B6A996 /* Setting files */,
-				ACF6C30825880A2800B6A996 /* View */,
 			);
 			path = MusicApp;
 			sourceTree = "<group>";
@@ -90,7 +103,8 @@
 			isa = PBXGroup;
 			children = (
 				ACF6C2EC2587C51C00B6A996 /* AlbumViewController.swift */,
-				AC93C3EC25890DB400F38FB0 /* DetailsViewController.swift */,
+				AC93C3EC25890DB400F38FB0 /* InfoAlbumViewController.swift */,
+				AC3938AB258D43B000BA093C /* InfoTrackViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -211,9 +225,11 @@
 			files = (
 				ACF6C3022587DB8100B6A996 /* NetworkManager.swift in Sources */,
 				ACF6C2ED2587C51C00B6A996 /* AlbumViewController.swift in Sources */,
+				AC3938AF258D7E9B00BA093C /* Extensions + UIActivityIndicator.swift in Sources */,
+				AC3938AC258D43B000BA093C /* InfoTrackViewController.swift in Sources */,
 				ACF6C2E92587C51C00B6A996 /* AppDelegate.swift in Sources */,
 				ACF6C3052587EAD600B6A996 /* AlbumModel.swift in Sources */,
-				AC93C3ED25890DB400F38FB0 /* DetailsViewController.swift in Sources */,
+				AC93C3ED25890DB400F38FB0 /* InfoAlbumViewController.swift in Sources */,
 				ACF6C2EB2587C51C00B6A996 /* SceneDelegate.swift in Sources */,
 				ACF6C30725880A1800B6A996 /* AlbumCell.swift in Sources */,
 				AC3938AA258D11DA00BA093C /* TrackCell.swift in Sources */,

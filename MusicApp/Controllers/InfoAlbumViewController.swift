@@ -11,8 +11,11 @@ import UIKit
 class InfoAlbumViewController: UIViewController {
     
     //MARK: - IBOutlets:
-    @IBOutlet weak var albumNameLabel: UILabel!
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    
     @IBOutlet weak var albumImage: UIImageView!
+    @IBOutlet weak var priceAlbumLabel: UILabel!
+    @IBOutlet weak var albumNameLabel: UILabel!
     @IBOutlet weak var tracksLabel: UILabel!
     @IBOutlet weak var tableView: UITableView!
     
@@ -23,11 +26,15 @@ class InfoAlbumViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        tableView.tableFooterView = UIView()
+        
+        activityIndicator.startActivityIndicator(delegate: self)
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let infoTrackVC = segue.destination as! InfoTrackViewController
+        guard let indexPath = tableView.indexPathForSelectedRow else { return }
+        infoTrackVC.infoTrack = infoOfAlbum?[indexPath.row]
     }
     
     //MARK: - Public methods:
@@ -42,6 +49,7 @@ class InfoAlbumViewController: UIViewController {
             
             DispatchQueue.main.async {
                 self.setupUI()
+                self.activityIndicator.finishActivityIndicator(delegate: self)
                 self.tableView.reloadData()
             }
         }
@@ -54,6 +62,7 @@ class InfoAlbumViewController: UIViewController {
         
         for info in infoOfAlbum ?? [] {
             albumNameLabel.text = info.collectionName
+            priceAlbumLabel.text = "\(info.collectionPrice ?? 0) \(info.currency ?? "")"
             
             guard let url = URL(string: info.albumPicture ?? "") else { return }
             guard let dataImage = try? Data(contentsOf: url) else { return }
@@ -63,7 +72,7 @@ class InfoAlbumViewController: UIViewController {
     }
     
     deinit {
-        print("DEINIT!")
+        print("Deinit", InfoAlbumViewController.self)
     }
 }
 
@@ -89,4 +98,8 @@ extension InfoAlbumViewController: UITableViewDataSource {
 }
 
 extension InfoAlbumViewController: UITableViewDelegate {
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+    }
 }
