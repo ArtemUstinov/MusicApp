@@ -40,8 +40,10 @@ class AlbumViewController: UIViewController {
         let albumCell = sender as! UICollectionViewCell
         guard let indexPath = collectionView.indexPath(for: albumCell) else { return }
         
+        let result = getFilteredResult(indexPath: indexPath)
+        
         DispatchQueue.main.async {
-            detailsVC.fetchDataArtist(albumId: self.albums?[indexPath.item].collectionId)
+            detailsVC.fetchDataArtist(albumId: result?.collectionId)
         }
     }
     
@@ -49,10 +51,12 @@ class AlbumViewController: UIViewController {
     private func fetchDataAlbum() {
         
         NetworkManager.shared.fetchDataAlbum { [unowned self] dataAlbums in
-            let dataAlbums = dataAlbums.results?.filter({ x -> Bool in
-                x.wrapperType != "artist"
-            })
+            
+            let dataAlbums = dataAlbums.results?.filter { $0.wrapperType != "artist" }
+            
             self.albums = dataAlbums
+            self.albums = self.albums?.sorted { $0.collectionName ?? "" < $1.collectionName ?? "" }
+            
             DispatchQueue.main.async {
                 self.collectionView.reloadData()
             }
@@ -76,7 +80,9 @@ extension AlbumViewController: UICollectionViewDataSource {
             collectionView.dequeueReusableCell(withReuseIdentifier: "albumCell",
                                                for: indexPath) as! InfoAlbumCell
         
-        cell.configureAlbumCell(with: albums, indexPath: indexPath)
+        let result = getFilteredResult(indexPath: indexPath)
+        
+        cell.configureAlbumCell(with: result, indexPath: indexPath)
         return cell
     }
 }
@@ -109,7 +115,15 @@ extension AlbumViewController: UISearchResultsUpdating {
     
     func updateSearchResults(for searchController: UISearchController) {
         
-        filterContentForSearchText(searchController.searchBar.text ?? "")
+        self.filterContentForSearchText(searchController.searchBar.text ?? "")
+    }
+    
+    private func getFilteredResult(indexPath: IndexPath) -> AlbumResultsModel? {
+        let result = isFiltering
+            ? sortedAlbumResults[indexPath.row]
+            : albums?[indexPath.row]
+        
+        return result
     }
     
     private func filterContentForSearchText(_ searchText: String) {
@@ -119,9 +133,7 @@ extension AlbumViewController: UISearchResultsUpdating {
             return dataValue?.contains(searchText.lowercased()) ?? false
             } ?? []
         
-        DispatchQueue.main.async {
-            self.collectionView.reloadData()
-        }
+        collectionView.reloadData()
     }
     
     private func getSearchController() {
