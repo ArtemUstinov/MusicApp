@@ -14,16 +14,13 @@ class AlbumViewController: UIViewController {
     @IBOutlet weak var collectionView: UICollectionView!
     
     //MARK: - Private properties:
-    private var albums: [AlbumResultsModel]?
-    private var sortedAlbumResults: [AlbumResultsModel] = []
+    private var albums: [Album]?
+    private var sortedAlbumResults: [Album] = []
     
     private let searchController = UISearchController(searchResultsController: nil)
-    private var searchBarIsEmpty: Bool {
-        guard let text = searchController.searchBar.text else { return false }
-        return text.isEmpty
-    }
     private var isFiltering: Bool {
-        searchController.isActive && !searchBarIsEmpty
+        searchController.isActive
+            && !(searchController.searchBar.text?.isEmpty ?? false)
     }
     
     //MARK: - Override methods:
@@ -50,15 +47,21 @@ class AlbumViewController: UIViewController {
     //MARK: - Private methods:
     private func fetchDataAlbum() {
         
-        NetworkManager.shared.fetchDataAlbum { [unowned self] dataAlbums in
+        NetworkManager.shared.fetchDataAlbums { [weak self] resultData in
             
-            let dataAlbums = dataAlbums.results?.filter { $0.wrapperType != "artist" }
-            
-            self.albums = dataAlbums
-            self.albums = self.albums?.sorted { $0.collectionName ?? "" < $1.collectionName ?? "" }
-            
-            DispatchQueue.main.async {
-                self.collectionView.reloadData()
+            switch resultData {
+            case .success(let dataAlbums):
+                var dataAlbums = dataAlbums.filter { $0.wrapperType != "artist" }
+                dataAlbums = dataAlbums.sorted { $0.collectionName ?? "" < $1.collectionName ?? "" }
+                
+                self?.albums = dataAlbums
+
+                DispatchQueue.main.async {
+                    self?.collectionView.reloadData()
+                }
+            case .failure(let error):
+                //Alert
+                print(error.localizedDescription)
             }
         }
     }
@@ -76,13 +79,16 @@ extension AlbumViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView,
                         cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-        let cell =
+        guard let cell =
             collectionView.dequeueReusableCell(withReuseIdentifier: "albumCell",
-                                               for: indexPath) as! InfoAlbumCell
+                                               for: indexPath) as? InfoAlbumCell else {
+                                                fatalError("Error! Not cell")
+                                                
+        }
         
         let result = getFilteredResult(indexPath: indexPath)
         
-        cell.configureAlbumCell(with: result, indexPath: indexPath)
+        cell.configure(with: result, indexPath: indexPath)
         return cell
     }
 }
@@ -118,7 +124,7 @@ extension AlbumViewController: UISearchResultsUpdating {
         self.filterContentForSearchText(searchController.searchBar.text ?? "")
     }
     
-    private func getFilteredResult(indexPath: IndexPath) -> AlbumResultsModel? {
+    private func getFilteredResult(indexPath: IndexPath) -> Album? {
         let result = isFiltering
             ? sortedAlbumResults[indexPath.row]
             : albums?[indexPath.row]

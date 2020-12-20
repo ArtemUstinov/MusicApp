@@ -11,7 +11,7 @@ import UIKit
 class InfoTrackViewController: UIViewController {
     
     //MARK: - IBOutlets:
-    @IBOutlet weak var trackImage: UIImageView!
+    @IBOutlet weak var trackImage: CoverImageView!
     
     @IBOutlet weak var albumNameLabel: UILabel!
     @IBOutlet weak var currencyPriceTrackLabel: UILabel!
@@ -21,7 +21,7 @@ class InfoTrackViewController: UIViewController {
     @IBOutlet weak var playButton: UIButton!
     
     //MARK: - Public properties:
-    var infoTrack: TrackResultsModel?
+    var infoTrack: Track?
     
     //MARK: - Private properties:
     private var isEditingMode = false
@@ -51,23 +51,13 @@ class InfoTrackViewController: UIViewController {
     //MARK: - Private methods:
     private func setupUI() {
         
-        trackImage.image = getTrackImage(with: infoTrack)
+        trackImage.layer.cornerRadius = trackImage.frame.height / 10
+        trackImage.fetchImage(from: infoTrack?.albumPicture ?? "")
         
         albumNameLabel.text = infoTrack?.collectionName
         currencyPriceTrackLabel.text =
         "\(infoTrack?.trackPrice ?? 0) \(infoTrack?.currency ?? "")"
         trackNameLabel.text = infoTrack?.trackName
         artistNameLabel.text = infoTrack?.artistName
-    }
-    
-    private func getTrackImage(with infoTrack: TrackResultsModel?) -> UIImage? {
-        
-        trackImage.layer.cornerRadius = trackImage.frame.height / 10
-        
-        guard let stringUrl = infoTrack?.albumPicture else { return nil }
-        guard let url = URL(string: stringUrl) else { return nil }
-        guard let dataImage = try? Data(contentsOf: url) else { return nil }
-        
-        return UIImage(data: dataImage)
     }
 }

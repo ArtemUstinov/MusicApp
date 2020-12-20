@@ -13,14 +13,14 @@ class InfoAlbumViewController: UIViewController {
     //MARK: - IBOutlets:
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
-    @IBOutlet weak var albumImage: UIImageView!
+    @IBOutlet weak var albumImage: CoverImageView!
     @IBOutlet weak var priceAlbumLabel: UILabel!
     @IBOutlet weak var albumNameLabel: UILabel!
     @IBOutlet weak var tracksLabel: UILabel!
     @IBOutlet weak var tableView: UITableView!
     
     //MARK: - Public properties:
-    private var infoOfAlbum: [TrackResultsModel]?
+    private var tracks: [Track]?
     
     //MARK: - Override methods:
     override func viewDidLoad() {
@@ -28,48 +28,74 @@ class InfoAlbumViewController: UIViewController {
         
         tableView.tableFooterView = UIView()
         
-        activityIndicator.startActivityIndicator(delegate: self)
+        startActivityIndicator()
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let infoTrackVC = segue.destination as! InfoTrackViewController
         guard let indexPath = tableView.indexPathForSelectedRow else { return }
-        infoTrackVC.infoTrack = infoOfAlbum?[indexPath.row]
+        infoTrackVC.infoTrack = tracks?[indexPath.row]
     }
     
     //MARK: - Public methods:
     func fetchDataArtist(albumId: Int?) {
         
-        NetworkManager.shared.fetchDataArtist(album: albumId ?? 0) {
-            [unowned self] dataOfAlbum in
-            let dataOfAlbum = dataOfAlbum.results?.filter({ x -> Bool in
-                x.wrapperType != "collection"
-            })
-            self.infoOfAlbum = dataOfAlbum
+        NetworkManager.shared.fetchDataTracks(album: albumId) {
+            [weak self] resultData in
             
-            DispatchQueue.main.async {
-                self.setupUI()
-                self.activityIndicator.finishActivityIndicator(delegate: self)
-                self.tableView.reloadData()
-            }
+            switch resultData {
+            case .success(let dataTracks):
+                let dataTracks = dataTracks.filter { $0.wrapperType != "collection" }
+                self?.tracks = dataTracks
+                
+                DispatchQueue.main.async {
+                    self?.setupUI()
+                    self?.finishActivityIndicator()
+                    self?.tableView.reloadData()
+                }
+            case .failure(let error):
+                //Alert
+                print(error.localizedDescription)
+            }     
         }
     }
     
     //MARK: - Private methods:
     private func setupUI() {
         
-        tracksLabel.text = "The album has \(infoOfAlbum?.count ?? 0) tracks:"
+        tracksLabel.text = "The album has \(tracks?.count ?? 0) tracks:"
         
-        for info in infoOfAlbum ?? [] {
+        for info in tracks ?? [] {
             albumNameLabel.text = info.collectionName
             priceAlbumLabel.text =
             "\(info.collectionPrice ?? 0) \(info.currency ?? "")"
             
-            guard let url = URL(string: info.albumPicture ?? "") else { return }
-            guard let dataImage = try? Data(contentsOf: url) else { return }
-            albumImage.image = UIImage(data: dataImage)
+            albumImage.fetchImage(from: info.albumPicture ?? "")
             albumImage.layer.cornerRadius = albumImage.frame.width / 50
         }
+    }
+    
+    private func startActivityIndicator() {
+        
+        activityIndicator.startAnimating()
+        activityIndicator.hidesWhenStopped = true
+        
+        albumImage.isHidden = true
+        albumNameLabel.isHidden = true
+        tracksLabel.isHidden = true
+        priceAlbumLabel.isHidden = true
+        tableView.isHidden = true
+    }
+    
+    private func finishActivityIndicator() {
+        
+        activityIndicator.stopAnimating()
+        
+        albumImage.isHidden = false
+        albumNameLabel.isHidden = false
+        tracksLabel.isHidden = false
+        priceAlbumLabel.isHidden = false
+        tableView.isHidden = false
     }
     
     deinit {
@@ -83,7 +109,7 @@ extension InfoAlbumViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView,
                    numberOfRowsInSection section: Int) -> Int {
         
-        infoOfAlbum?.count ?? 0
+        tracks?.count ?? 0
     }
     
     func tableView(_ tableView: UITableView,
@@ -92,7 +118,7 @@ extension InfoAlbumViewController: UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: "trackCell",
                                                  for: indexPath) as! TrackCell
         
-        cell.configureTrackCell(with: infoOfAlbum, indexPath: indexPath)
+        cell.configure(with: tracks, indexPath: indexPath)
         
         return cell
     }

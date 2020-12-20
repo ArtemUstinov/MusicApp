@@ -11,18 +11,14 @@ import UIKit
 class InfoAlbumCell: UICollectionViewCell {
     
     //MARK: - IBOutlets:
-    @IBOutlet weak var albumCellImage: UIImageView!
+    @IBOutlet weak var albumCellImage: CoverImageView!
     
     //MARK: - Public methods:
-    func configureAlbumCell(with albums: AlbumResultsModel?,
+    func configure(with albums: Album?,
                             indexPath: IndexPath) {
-        
+    
         albumCellImage.layer.cornerRadius = albumCellImage.frame.height / 10
         
-        guard let stringUrl = albums?.albumPicture else { return }
-        guard let url = URL(string: stringUrl) else { return }
-        guard let dataImage = try? Data(contentsOf: url) else { return }
-        
-        self.albumCellImage.image = UIImage(data: dataImage)
+        albumCellImage.fetchImage(from: albums?.albumPicture ?? "")
     }
 }

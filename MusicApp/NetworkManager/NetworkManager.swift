@@ -10,49 +10,72 @@ import Foundation
 
 class NetworkManager {
     
-    //MARK: SingleTon
     static let shared = NetworkManager()
     private init() {}
     
-    //MARK: - Fetch data for albums
-    func fetchDataAlbum(completion: @escaping(AlbumModel) -> Void) {
+    enum ApiUrl {
+        static let allAlbum =
+        "https://itunes.apple.com/lookup?amgArtistId=4576&entity=album&limit=55"
         
-        guard let url = URL(string: URLS.album.rawValue) else { return }
+        static let album =
+        "https://itunes.apple.com/lookup?id=%@&entity=song&limit=200"
+    }
+    
+    //MARK: - Fetch data of albums
+    func fetchDataAlbums(completion: @escaping(Result<[Album], Error>) -> Void) {
+        
+        guard let url = URL(string: ApiUrl.allAlbum) else { return }
         
         URLSession.shared.dataTask(with: url) { (data, _, error) in
             if let error = error {
+                completion(.failure(error))
                 print(error.localizedDescription)
                 return
             }
             guard let data = data else { return }
             
             do {
-                let resultDataAlbum = try JSONDecoder().decode(AlbumModel.self, from: data)
-                completion(resultDataAlbum)
+                let allAlbums = try JSONDecoder().decode(ResultModel<Album>.self,
+                                                         from: data)
+                completion(.success(allAlbums.results ?? []))
             } catch let error {
                 print(error.localizedDescription)
             }
         }.resume()
     }
     
-    //MARK: - Fetch data of track for albums
-    func fetchDataArtist(album: Int, completion: @escaping(TrackModel) -> Void) {
+    //MARK: - Fetch data of image for albums
+    func fetchDataImageOfAlbums(from url: URL, completion: @escaping(Data) -> Void) {
         
-        let art =
-        "https://itunes.apple.com/lookup?id=\(album)&entity=song&limit=200"
+        URLSession.shared.dataTask(with: url) { (data, _, error) in
+            
+            guard let data = data else {
+                print(error?.localizedDescription ?? "")
+                return
+            }
+            completion(data)
+        }.resume()
+    }
+    
+    //MARK: - Fetch data of tracks for album
+    func fetchDataTracks(album: Int?,
+                         completion: @escaping(Result<[Track], Error>) -> Void) {
         
-        guard let url = URL(string: art) else { return }
+        let urlString = String(format: ApiUrl.album, String(album ?? 0))
+        guard let url = URL(string: urlString) else { return }
         
         URLSession.shared.dataTask(with: url) { (data, _, error) in
             if let error = error {
+                completion(.failure(error))
                 print(error.localizedDescription)
                 return
             }
             guard let data = data else { return }
             
             do {
-                let resultDataArtist = try JSONDecoder().decode(TrackModel.self, from: data)
-                completion(resultDataArtist)
+                let tracks = try JSONDecoder().decode(ResultModel<Track>.self,
+                                                      from: data)
+                completion(.success(tracks.results ?? []))
             } catch let error {
                 print(error.localizedDescription)
             }
