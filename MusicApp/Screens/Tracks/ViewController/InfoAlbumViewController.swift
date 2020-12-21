@@ -14,12 +14,15 @@ class InfoAlbumViewController: UIViewController {
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     @IBOutlet weak var albumImage: CoverImageView!
+    
+    @IBOutlet weak var tableView: UITableView!
+    
     @IBOutlet weak var priceAlbumLabel: UILabel!
     @IBOutlet weak var albumNameLabel: UILabel!
     @IBOutlet weak var tracksLabel: UILabel!
-    @IBOutlet weak var tableView: UITableView!
     
     //MARK: - Public properties:
+    private let alertController = AlertController()
     private var tracks: [Track]?
     
     //MARK: - Override methods:
@@ -32,8 +35,8 @@ class InfoAlbumViewController: UIViewController {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        let infoTrackVC = segue.destination as! InfoTrackViewController
-        guard let indexPath = tableView.indexPathForSelectedRow else { return }
+        guard let infoTrackVC = segue.destination as? InfoTrackViewController,
+            let indexPath = tableView.indexPathForSelectedRow else { return }
         infoTrackVC.infoTrack = tracks?[indexPath.row]
     }
     
@@ -47,21 +50,23 @@ class InfoAlbumViewController: UIViewController {
             case .success(let dataTracks):
                 let dataTracks = dataTracks.filter { $0.wrapperType != "collection" }
                 self?.tracks = dataTracks
-                
                 DispatchQueue.main.async {
                     self?.setupUI()
                     self?.finishActivityIndicator()
                     self?.tableView.reloadData()
                 }
             case .failure(let error):
-                //Alert
-                print(error.localizedDescription)
+                self?.alertController.show(error) { alert in
+                    self?.present(alert, animated: true)
+                }
             }     
         }
     }
     
     //MARK: - Private methods:
     private func setupUI() {
+        
+        albumImage.layer.cornerRadius = albumImage.frame.width / 50
         
         tracksLabel.text = "The album has \(tracks?.count ?? 0) tracks:"
         
@@ -71,35 +76,7 @@ class InfoAlbumViewController: UIViewController {
             "\(info.collectionPrice ?? 0) \(info.currency ?? "")"
             
             albumImage.fetchImage(from: info.albumPicture ?? "")
-            albumImage.layer.cornerRadius = albumImage.frame.width / 50
         }
-    }
-    
-    private func startActivityIndicator() {
-        
-        activityIndicator.startAnimating()
-        activityIndicator.hidesWhenStopped = true
-        
-        albumImage.isHidden = true
-        albumNameLabel.isHidden = true
-        tracksLabel.isHidden = true
-        priceAlbumLabel.isHidden = true
-        tableView.isHidden = true
-    }
-    
-    private func finishActivityIndicator() {
-        
-        activityIndicator.stopAnimating()
-        
-        albumImage.isHidden = false
-        albumNameLabel.isHidden = false
-        tracksLabel.isHidden = false
-        priceAlbumLabel.isHidden = false
-        tableView.isHidden = false
-    }
-    
-    deinit {
-        print("Deinit", InfoAlbumViewController.self)
     }
 }
 
@@ -124,11 +101,39 @@ extension InfoAlbumViewController: UITableViewDataSource {
     }
 }
 
+//MARK: - UITable view delegate
 extension InfoAlbumViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView,
                    didSelectRowAt indexPath: IndexPath) {
         
         tableView.deselectRow(at: indexPath, animated: true)
+    }
+}
+
+//MARK:- Setting UIActivity indicator
+extension InfoAlbumViewController {
+    
+    private func startActivityIndicator() {
+        
+        activityIndicator.startAnimating()
+        activityIndicator.hidesWhenStopped = true
+        
+        albumImage.isHidden = true
+        albumNameLabel.isHidden = true
+        tracksLabel.isHidden = true
+        priceAlbumLabel.isHidden = true
+        tableView.isHidden = true
+    }
+    
+    private func finishActivityIndicator() {
+        
+        activityIndicator.stopAnimating()
+        
+        albumImage.isHidden = false
+        albumNameLabel.isHidden = false
+        tracksLabel.isHidden = false
+        priceAlbumLabel.isHidden = false
+        tableView.isHidden = false
     }
 }

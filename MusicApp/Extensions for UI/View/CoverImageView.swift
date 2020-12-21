@@ -16,12 +16,10 @@ class CoverImageView: UIImageView {
             return
         }
         
-        NetworkManager.shared.fetchDataImageOfAlbums(from: url) { imageData in
+        NetworkManager.shared.fetchImageData(from: url) { imageData in
             DispatchQueue.main.async {
                 self.image = UIImage(data: imageData)
             }
         }
     }
-    
-    
 }

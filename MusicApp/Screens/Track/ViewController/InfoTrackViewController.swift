@@ -33,10 +33,6 @@ class InfoTrackViewController: UIViewController {
         setupUI()
     }
     
-    deinit {
-        print("Deinit", InfoTrackViewController.self)
-    }
-    
     //MARK: - IBActions:
     @IBAction func playButtonTapped(_ sender: UIButton) {
         

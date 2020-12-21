@@ -1,5 +1,5 @@
 //
-//  AlbumViewController.swift
+//  AlbumsViewController.swift
 //  MusicApp
 //
 //  Created by Артём Устинов on 14.12.2020.
@@ -8,13 +8,13 @@
 
 import UIKit
 
-class AlbumViewController: UIViewController {
+class AlbumsViewController: UIViewController {
     
     //MARK: - IBOutlets:
     @IBOutlet weak var collectionView: UICollectionView!
     
     //MARK: - Private properties:
-    private var albums: [Album]?
+    private let alertController = AlertController()
     private var sortedAlbumResults: [Album] = []
     
     private let searchController = UISearchController(searchResultsController: nil)
@@ -27,16 +27,14 @@ class AlbumViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        fetchDataAlbum()
         getSearchController()
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
-        let detailsVC = segue.destination as! InfoAlbumViewController
-        let albumCell = sender as! UICollectionViewCell
-        guard let indexPath = collectionView.indexPath(for: albumCell) else { return }
-        
+        guard let detailsVC = segue.destination as? InfoAlbumViewController,
+            let albumCell = sender as? UICollectionViewCell,
+            let indexPath = collectionView.indexPath(for: albumCell) else { return }
         let result = getFilteredResult(indexPath: indexPath)
         
         DispatchQueue.main.async {
@@ -45,35 +43,37 @@ class AlbumViewController: UIViewController {
     }
     
     //MARK: - Private methods:
-    private func fetchDataAlbum() {
+    private func fetchDataAlbum(with text: String) {
         
-        NetworkManager.shared.fetchDataAlbums { [weak self] resultData in
+        NetworkManager.shared.fetchDataAlbums(searchName: text) {
+            [weak self] resultData in
             
             switch resultData {
             case .success(let dataAlbums):
                 var dataAlbums = dataAlbums.filter { $0.wrapperType != "artist" }
-                dataAlbums = dataAlbums.sorted { $0.collectionName ?? "" < $1.collectionName ?? "" }
-                
-                self?.albums = dataAlbums
-
+                dataAlbums = dataAlbums.sorted {
+                    $0.collectionName ?? "" < $1.collectionName ?? ""
+                }
+                self?.sortedAlbumResults = dataAlbums
                 DispatchQueue.main.async {
                     self?.collectionView.reloadData()
                 }
             case .failure(let error):
-                //Alert
-                print(error.localizedDescription)
+                self?.alertController.show(error) { alert in
+                    self?.present(alert, animated: true)
+                }
             }
         }
     }
 }
 
 //MARK: - UICollection view data source
-extension AlbumViewController: UICollectionViewDataSource {
+extension AlbumsViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView,
                         numberOfItemsInSection section: Int) -> Int {
         
-        isFiltering ? sortedAlbumResults.count : albums?.count ?? 0
+        isFiltering ? sortedAlbumResults.count : 0
     }
     
     func collectionView(_ collectionView: UICollectionView,
@@ -94,7 +94,7 @@ extension AlbumViewController: UICollectionViewDataSource {
 }
 
 //MARK: - UICollection view delegate flow layout
-extension AlbumViewController: UICollectionViewDelegateFlowLayout {
+extension AlbumsViewController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
@@ -117,7 +117,7 @@ extension AlbumViewController: UICollectionViewDelegateFlowLayout {
 }
 
 //MARK: - UISearch controller
-extension AlbumViewController: UISearchResultsUpdating {
+extension AlbumsViewController: UISearchResultsUpdating {
     
     func updateSearchResults(for searchController: UISearchController) {
         
@@ -125,19 +125,18 @@ extension AlbumViewController: UISearchResultsUpdating {
     }
     
     private func getFilteredResult(indexPath: IndexPath) -> Album? {
-        let result = isFiltering
-            ? sortedAlbumResults[indexPath.row]
-            : albums?[indexPath.row]
         
-        return result
+        isFiltering ? sortedAlbumResults[indexPath.row] : nil
     }
     
     private func filterContentForSearchText(_ searchText: String) {
         
-        sortedAlbumResults = albums?.filter { dataValue in
+        fetchDataAlbum(with: searchText)
+        
+        sortedAlbumResults = sortedAlbumResults.filter { dataValue in
             let dataValue = dataValue.collectionName?.lowercased()
             return dataValue?.contains(searchText.lowercased()) ?? false
-            } ?? []
+        }
         
         collectionView.reloadData()
     }
@@ -146,7 +145,8 @@ extension AlbumViewController: UISearchResultsUpdating {
         
         searchController.searchResultsUpdater = self
         searchController.obscuresBackgroundDuringPresentation = false
-        searchController.searchBar.placeholder = "Enter the name of the album"
+        searchController.searchBar.placeholder =
+        "Enter the name of the album or singer"
         searchController.searchBar.barTintColor = .white
         navigationItem.searchController = searchController
         definesPresentationContext = true

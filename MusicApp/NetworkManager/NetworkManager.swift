@@ -13,18 +13,24 @@ class NetworkManager {
     static let shared = NetworkManager()
     private init() {}
     
+    //MARK: - Enums
     enum ApiUrl {
-        static let allAlbum =
+        static let allAlbumTest =
         "https://itunes.apple.com/lookup?amgArtistId=4576&entity=album&limit=55"
         
         static let album =
         "https://itunes.apple.com/lookup?id=%@&entity=song&limit=200"
+        
+        static let searchName = "https://itunes.apple.com/search?term=%@&entity=album"
     }
     
-    //MARK: - Fetch data of albums
-    func fetchDataAlbums(completion: @escaping(Result<[Album], Error>) -> Void) {
+    //MARK: - Fetch search data of albums
+    func fetchDataAlbums(searchName: String,
+                         completion: @escaping(Result<[Album], Error>) -> Void) {
         
-        guard let url = URL(string: ApiUrl.allAlbum) else { return }
+        let urlString = String(format: ApiUrl.searchName, searchName)
+        
+        guard let url = URL(string: urlString) else { return }
         
         URLSession.shared.dataTask(with: url) { (data, _, error) in
             if let error = error {
@@ -41,19 +47,6 @@ class NetworkManager {
             } catch let error {
                 print(error.localizedDescription)
             }
-        }.resume()
-    }
-    
-    //MARK: - Fetch data of image for albums
-    func fetchDataImageOfAlbums(from url: URL, completion: @escaping(Data) -> Void) {
-        
-        URLSession.shared.dataTask(with: url) { (data, _, error) in
-            
-            guard let data = data else {
-                print(error?.localizedDescription ?? "")
-                return
-            }
-            completion(data)
         }.resume()
     }
     
@@ -79,6 +72,19 @@ class NetworkManager {
             } catch let error {
                 print(error.localizedDescription)
             }
+        }.resume()
+    }
+    
+    //MARK: - Fetch data of image for albums
+    func fetchImageData(from url: URL, completion: @escaping(Data) -> Void) {
+        
+        URLSession.shared.dataTask(with: url) { (data, _, error) in
+            
+            guard let data = data else {
+                print(error?.localizedDescription ?? "")
+                return
+            }
+            completion(data)
         }.resume()
     }
 }

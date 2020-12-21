@@ -11,14 +11,13 @@ import UIKit
 class InfoAlbumCell: UICollectionViewCell {
     
     //MARK: - IBOutlets:
-    @IBOutlet weak var albumCellImage: CoverImageView!
+    @IBOutlet weak var albumImage: CoverImageView!
     
     //MARK: - Public methods:
-    func configure(with albums: Album?,
-                            indexPath: IndexPath) {
-    
-        albumCellImage.layer.cornerRadius = albumCellImage.frame.height / 10
+    func configure(with album: Album?, indexPath: IndexPath) {
         
-        albumCellImage.fetchImage(from: albums?.albumPicture ?? "")
+        albumImage.layer.cornerRadius = albumImage.frame.height / 10
+        
+        albumImage.fetchImage(from: album?.albumPicture ?? "")
     }
 }

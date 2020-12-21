@@ -12,9 +12,10 @@
 		AC93C3ED25890DB400F38FB0 /* InfoAlbumViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC93C3EC25890DB400F38FB0 /* InfoAlbumViewController.swift */; };
 		AC94AA0E258FB985000717C0 /* TrackModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC94AA0D258FB985000717C0 /* TrackModel.swift */; };
 		AC94AA10258FC487000717C0 /* CoverImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC94AA0F258FC487000717C0 /* CoverImageView.swift */; };
+		AC94AA1625901B97000717C0 /* AlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC94AA1525901B96000717C0 /* AlertController.swift */; };
 		ACF6C2E92587C51C00B6A996 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACF6C2E82587C51C00B6A996 /* AppDelegate.swift */; };
 		ACF6C2EB2587C51C00B6A996 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACF6C2EA2587C51C00B6A996 /* SceneDelegate.swift */; };
-		ACF6C2ED2587C51C00B6A996 /* AlbumViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACF6C2EC2587C51C00B6A996 /* AlbumViewController.swift */; };
+		ACF6C2ED2587C51C00B6A996 /* AlbumsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACF6C2EC2587C51C00B6A996 /* AlbumsViewController.swift */; };
 		ACF6C2F02587C51C00B6A996 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ACF6C2EE2587C51C00B6A996 /* Main.storyboard */; };
 		ACF6C2F22587C52200B6A996 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ACF6C2F12587C52200B6A996 /* Assets.xcassets */; };
 		ACF6C2F52587C52200B6A996 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ACF6C2F32587C52200B6A996 /* LaunchScreen.storyboard */; };
@@ -29,10 +30,11 @@
 		AC93C3EC25890DB400F38FB0 /* InfoAlbumViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoAlbumViewController.swift; sourceTree = "<group>"; };
 		AC94AA0D258FB985000717C0 /* TrackModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackModel.swift; sourceTree = "<group>"; };
 		AC94AA0F258FC487000717C0 /* CoverImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoverImageView.swift; sourceTree = "<group>"; };
+		AC94AA1525901B96000717C0 /* AlertController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertController.swift; sourceTree = "<group>"; };
 		ACF6C2E52587C51C00B6A996 /* MusicApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MusicApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		ACF6C2E82587C51C00B6A996 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		ACF6C2EA2587C51C00B6A996 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		ACF6C2EC2587C51C00B6A996 /* AlbumViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumViewController.swift; sourceTree = "<group>"; };
+		ACF6C2EC2587C51C00B6A996 /* AlbumsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumsViewController.swift; sourceTree = "<group>"; };
 		ACF6C2EF2587C51C00B6A996 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		ACF6C2F12587C52200B6A996 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		ACF6C2F42587C52200B6A996 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -53,6 +55,91 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		AC94AA1725901F40000717C0 /* Screens */ = {
+			isa = PBXGroup;
+			children = (
+				AC94AA1825901F54000717C0 /* Albums */,
+				AC94AA1A25901F79000717C0 /* Tracks */,
+				AC94AA1B25901FB9000717C0 /* Track */,
+			);
+			path = Screens;
+			sourceTree = "<group>";
+		};
+		AC94AA1825901F54000717C0 /* Albums */ = {
+			isa = PBXGroup;
+			children = (
+				AC94AA1E25901FF3000717C0 /* View */,
+				AC94AA1C25901FE0000717C0 /* ViewController */,
+			);
+			path = Albums;
+			sourceTree = "<group>";
+		};
+		AC94AA1A25901F79000717C0 /* Tracks */ = {
+			isa = PBXGroup;
+			children = (
+				AC94AA2025901FFF000717C0 /* View */,
+				AC94AA1F25901FF9000717C0 /* ViewController */,
+			);
+			path = Tracks;
+			sourceTree = "<group>";
+		};
+		AC94AA1B25901FB9000717C0 /* Track */ = {
+			isa = PBXGroup;
+			children = (
+				AC94AA2125902003000717C0 /* ViewController */,
+			);
+			path = Track;
+			sourceTree = "<group>";
+		};
+		AC94AA1C25901FE0000717C0 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				ACF6C2EC2587C51C00B6A996 /* AlbumsViewController.swift */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		AC94AA1E25901FF3000717C0 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				ACF6C30625880A1800B6A996 /* InfoAlbumCell.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		AC94AA1F25901FF9000717C0 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				AC93C3EC25890DB400F38FB0 /* InfoAlbumViewController.swift */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		AC94AA2025901FFF000717C0 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				AC3938A9258D11DA00BA093C /* TrackCell.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		AC94AA2125902003000717C0 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				AC3938AB258D43B000BA093C /* InfoTrackViewController.swift */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		AC94AA22259021AD000717C0 /* Extensions for UI */ = {
+			isa = PBXGroup;
+			children = (
+				ACF6C30825880A2800B6A996 /* View */,
+				ACF6C2FD2587C6F800B6A996 /* Controller */,
+			);
+			path = "Extensions for UI";
+			sourceTree = "<group>";
+		};
 		ACF6C2DC2587C51C00B6A996 = {
 			isa = PBXGroup;
 			children = (
@@ -72,34 +159,24 @@
 		ACF6C2E72587C51C00B6A996 /* MusicApp */ = {
 			isa = PBXGroup;
 			children = (
-				ACF6C2FC2587C6EE00B6A996 /* Support files */,
+				ACF6C2E82587C51C00B6A996 /* AppDelegate.swift */,
+				ACF6C2EA2587C51C00B6A996 /* SceneDelegate.swift */,
+				ACF6C2F12587C52200B6A996 /* Assets.xcassets */,
+				ACF6C2F62587C52200B6A996 /* Info.plist */,
 				ACF6C3002587DB6F00B6A996 /* NetworkManager */,
-				ACF6C3032587EABC00B6A996 /* Model */,
-				ACF6C30825880A2800B6A996 /* View */,
-				ACF6C2FD2587C6F800B6A996 /* Controllers */,
+				AC94AA1725901F40000717C0 /* Screens */,
+				AC94AA22259021AD000717C0 /* Extensions for UI */,
 				ACF6C2FE2587C70800B6A996 /* Storyboards */,
-				ACF6C2FF2587C71700B6A996 /* Setting files */,
 			);
 			path = MusicApp;
 			sourceTree = "<group>";
 		};
-		ACF6C2FC2587C6EE00B6A996 /* Support files */ = {
+		ACF6C2FD2587C6F800B6A996 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				ACF6C2E82587C51C00B6A996 /* AppDelegate.swift */,
-				ACF6C2EA2587C51C00B6A996 /* SceneDelegate.swift */,
+				AC94AA1525901B96000717C0 /* AlertController.swift */,
 			);
-			path = "Support files";
-			sourceTree = "<group>";
-		};
-		ACF6C2FD2587C6F800B6A996 /* Controllers */ = {
-			isa = PBXGroup;
-			children = (
-				ACF6C2EC2587C51C00B6A996 /* AlbumViewController.swift */,
-				AC93C3EC25890DB400F38FB0 /* InfoAlbumViewController.swift */,
-				AC3938AB258D43B000BA093C /* InfoTrackViewController.swift */,
-			);
-			path = Controllers;
+			path = Controller;
 			sourceTree = "<group>";
 		};
 		ACF6C2FE2587C70800B6A996 /* Storyboards */ = {
@@ -111,19 +188,11 @@
 			path = Storyboards;
 			sourceTree = "<group>";
 		};
-		ACF6C2FF2587C71700B6A996 /* Setting files */ = {
-			isa = PBXGroup;
-			children = (
-				ACF6C2F12587C52200B6A996 /* Assets.xcassets */,
-				ACF6C2F62587C52200B6A996 /* Info.plist */,
-			);
-			path = "Setting files";
-			sourceTree = "<group>";
-		};
 		ACF6C3002587DB6F00B6A996 /* NetworkManager */ = {
 			isa = PBXGroup;
 			children = (
 				ACF6C3012587DB8100B6A996 /* NetworkManager.swift */,
+				ACF6C3032587EABC00B6A996 /* Model */,
 			);
 			path = NetworkManager;
 			sourceTree = "<group>";
@@ -140,8 +209,6 @@
 		ACF6C30825880A2800B6A996 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				ACF6C30625880A1800B6A996 /* InfoAlbumCell.swift */,
-				AC3938A9258D11DA00BA093C /* TrackCell.swift */,
 				AC94AA0F258FC487000717C0 /* CoverImageView.swift */,
 			);
 			path = View;
@@ -219,9 +286,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				ACF6C3022587DB8100B6A996 /* NetworkManager.swift in Sources */,
-				ACF6C2ED2587C51C00B6A996 /* AlbumViewController.swift in Sources */,
+				ACF6C2ED2587C51C00B6A996 /* AlbumsViewController.swift in Sources */,
 				AC94AA0E258FB985000717C0 /* TrackModel.swift in Sources */,
 				AC94AA10258FC487000717C0 /* CoverImageView.swift in Sources */,
+				AC94AA1625901B97000717C0 /* AlertController.swift in Sources */,
 				AC3938AC258D43B000BA093C /* InfoTrackViewController.swift in Sources */,
 				ACF6C2E92587C51C00B6A996 /* AppDelegate.swift in Sources */,
 				ACF6C3052587EAD600B6A996 /* AlbumModel.swift in Sources */,
@@ -372,14 +440,17 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				INFOPLIST_FILE = "MusicApp/Setting files/Info.plist";
+				DEVELOPMENT_TEAM = 7B5A43VP4C;
+				INFOPLIST_FILE = MusicApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = ArtemUstinov.MusicApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -389,14 +460,17 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				INFOPLIST_FILE = "MusicApp/Setting files/Info.plist";
+				DEVELOPMENT_TEAM = 7B5A43VP4C;
+				INFOPLIST_FILE = MusicApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = ArtemUstinov.MusicApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};

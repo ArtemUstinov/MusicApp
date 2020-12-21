@@ -17,13 +17,11 @@ class TrackCell: UITableViewCell {
     @IBOutlet weak var trackPriceLabel: UILabel!
     
     //MARK: - Public methods:
-    func configure(with infoOfAlbum: [Track]?,
-                   indexPath: IndexPath) {
+    func configure(with infoOfAlbum: [Track]?, indexPath: IndexPath) {
         
+        guard let trackPrice = infoOfAlbum?[indexPath.row].trackPrice,
+            let currency = infoOfAlbum?[indexPath.row].currency else { return }
         trackNameLabel.text = infoOfAlbum?[indexPath.row].trackName
-        
-        guard let trackPrice = infoOfAlbum?[indexPath.row].trackPrice else { return }
-        guard let currency = infoOfAlbum?[indexPath.row].currency else { return }
         trackPriceLabel.text = "\(trackPrice) \(currency)"
         
         albumImage.fetchImage(from: infoOfAlbum?[indexPath.row].albumPicture ?? "")
